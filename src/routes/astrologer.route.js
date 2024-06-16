@@ -1,7 +1,7 @@
 import { addAstrologer, removeAstrologer, toggleTopAstrologer } from "../controllers/astrologer.controller.js";
 import { astrologerLogin, astrologerRegister } from "../controllers/auth.controller.js";
 import { verifyAstrologer } from "../middlewares/auth.middleware.js";
-
+import express from "express";
 const router = express.Router();
 
 router.route("/login").post(astrologerLogin);

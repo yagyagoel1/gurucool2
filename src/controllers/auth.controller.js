@@ -1,8 +1,9 @@
-import { Astrologer } from "../models/astrologer.model";
-import { User } from "../models/user.model";
-import { ApiError } from "../utils/ApiError";
-import ApiResponse from "../utils/ApiResponse";
-import { asyncHandler } from "../utils/asyncHandler";
+import { Astrologer } from "../models/astrologer.model.js";
+import { User } from "../models/user.model.js";
+import { registerLoginSchema } from "../schemas/auth.schema.js";
+import { ApiError } from "../utils/ApiError.js";
+import ApiResponse from "../utils/ApiResponse.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 const astrologerRegister = asyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
@@ -15,7 +16,7 @@ const astrologerRegister = asyncHandler(async (req, res, next) => {
         return res.status(400).json(new ApiError(400,"astrologer already exists"))
     }
     const astrologer = await Astrologer.create({ email, password });
-return res.status(201).json(new ApiResponse(201,"astrologer created successfully",astrologer))   
+return res.status(201).json(new ApiResponse(201,"astrologer created successfully"))   
 });
 
 const astrologerLogin = asyncHandler(async (req, res, next) => {
@@ -35,7 +36,9 @@ const astrologerLogin = asyncHandler(async (req, res, next) => {
     const token = astrologer.generateToken();
     astrologer.token = token;
     await astrologer.save();
-    return res.status(200).json(new ApiResponse(200,"login successful",astrologer))
+    return res.status(200).cookie("token",token,{httpOnly:true,
+        secure : process.env.NODE_ENV === "production" ? true : false,
+    }).json(new ApiResponse(200,"login successful"))
 });
 const userRegister = asyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
@@ -48,7 +51,7 @@ const userRegister = asyncHandler(async (req, res, next) => {
         return res.status(400).json(new ApiError(400,"user already exists"))
     }
     const user = await User.create({  email, password });
-return res.status(201).json(new ApiResponse(201,"user created successfully",user))
+return res.status(201).json(new ApiResponse(201,"user created successfully"))
 });
 const userLogin = asyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
@@ -67,6 +70,8 @@ const userLogin = asyncHandler(async (req, res, next) => {
     const token = user.generateToken();
     user.token = token;
     await user.save();
-    return res.status(200).json(new ApiResponse(200,"login successful",user))
+    return res.status(200).cookie("token",token,{httpOnly:true,
+        secure : process.env.NODE_ENV === "production" ? true : false,
+    }).json(new ApiResponse(200,"login successful"))
 });
 export { astrologerRegister, astrologerLogin, userRegister, userLogin };

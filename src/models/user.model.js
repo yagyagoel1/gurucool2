@@ -1,5 +1,6 @@
-import { Schema } from "mongoose";
-
+import mongoose, { Schema } from "mongoose";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 const userSchema =  new Schema({
     email: {
         type: String,
@@ -26,7 +27,7 @@ const userSchema =  new Schema({
         next();
       });
     userSchema.methods.generateToken = function () {
-        return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+        return jwt.sign({ id: this._id }, process.env.USER_JWT_SECRET, {
           expiresIn: process.env.USER_JWT_EXPIRY,
         });
       }

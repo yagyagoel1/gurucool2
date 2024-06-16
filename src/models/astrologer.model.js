@@ -1,3 +1,6 @@
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 const astrologerSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -33,7 +36,7 @@ astrologerSchema.methods.checkPassword = async function (password) {
     return await bcrypt.compare(password, this.password);
 };
 astrologerSchema.methods.generateToken = function () {
-    return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    return jwt.sign({ id: this._id }, process.env.ASTRO_JWT_SECRET, {
         expiresIn: process.env.ASTRO_JWT_EXPIRY,
     });
 }
