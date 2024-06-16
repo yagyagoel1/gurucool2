@@ -16,10 +16,6 @@ const astrologerSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    currentConnections:{
-        type: Number,
-        default: 0,
-    },
     token:{
         type: String,
     },
