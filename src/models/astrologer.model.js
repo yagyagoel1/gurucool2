@@ -12,9 +12,9 @@ const astrologerSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    toogleAstrologer: {
+    toggleAstrologer: {
         type: Boolean,
-        default: true
+        default: false
     },
     currentConnections:{
         type: Number,
