@@ -28,3 +28,13 @@ export const addAstrologer = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200,"astrologer added successfully"))
 });
 
+export const removeAstrologer = asyncHandler(async (req, res) => {
+    const id = req.astrologer._id
+    try {
+     flowDistributionAlgorithm.removeAstrologer(id);
+    } catch (error) {
+     res.status(400).json(new ApiError(400,"astrologer is not available"));
+    }
+     res.status(200).json(new ApiResponse(200,"astrologer removed successfully"))
+ });
+ 
