@@ -19,11 +19,12 @@ export const addAstrologer = asyncHandler(async (req, res) => {
     req.astrologer._doc.currentConnections = 0;
     
  const astrologerAdded=   await flowDistributionAlgorithm.addAstrologer(req.astrologer);
-    if(!astrologerAdded==null)
-    return res.status(200).json(new ApiResponse(200,"astrologer added successfully"))
-
-
+    
+    
+    if(astrologerAdded==null)
     return res.status(400).json(new ApiError(400,"astrologer is already added"));
+
+    return res.status(200).json(new ApiResponse(200,"astrologer added successfully",req.astrologer._id))
 
 });
 
@@ -34,5 +35,5 @@ export const removeAstrologer = asyncHandler(async (req, res) => {
     } catch (error) {
      res.status(400).json(new ApiError(400,"astrologer is not available"));
     }
-     res.status(200).json(new ApiResponse(200,"astrologer removed successfully"))
+     res.status(200).json(new ApiResponse(200,"astrologer removed successfully",req.astrologer._id))
  });

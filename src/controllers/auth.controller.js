@@ -38,7 +38,7 @@ const astrologerLogin = asyncHandler(async (req, res, next) => {
     await astrologer.save();
     return res.status(200).cookie("token",token,{httpOnly:true,
         secure : process.env.NODE_ENV === "production" ? true : false,
-    }).json(new ApiResponse(200,"login successful"))
+    }).json(new ApiResponse(200,"login successful",astrologer._id))
 });
 const userRegister = asyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
@@ -51,7 +51,7 @@ const userRegister = asyncHandler(async (req, res, next) => {
         return res.status(400).json(new ApiError(400,"user already exists"))
     }
     const user = await User.create({  email, password });
-return res.status(201).json(new ApiResponse(201,"user created successfully"))
+return res.status(201).json(new ApiResponse(201,"user created successfully",user._id))
 });
 const userLogin = asyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
@@ -72,6 +72,6 @@ const userLogin = asyncHandler(async (req, res, next) => {
     await user.save();
     return res.status(200).cookie("token",token,{httpOnly:true,
         secure : process.env.NODE_ENV === "production" ? true : false,
-    }).json(new ApiResponse(200,"login successful"))
+    }).json(new ApiResponse(200,"login successful",user._id))
 });
 export { astrologerRegister, astrologerLogin, userRegister, userLogin };
