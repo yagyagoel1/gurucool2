@@ -11,7 +11,7 @@ const limiter = rateLimit({
   standardHeaders: "draft-7", // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
   message: "Too many requests from this IP, please try again after 15 minutes",});
-
+app.use(limiter)
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN,
