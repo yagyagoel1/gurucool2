@@ -4,7 +4,6 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import flowDistributionAlgorithm from "../utils/flowAlgorithm/flowAlgorithm.js";
 
 export const addUser = asyncHandler(async (req, res) => {
-    req.user=null;
 
 
     const assignedAstrologer = await flowDistributionAlgorithm.distributeUser(req.user);
