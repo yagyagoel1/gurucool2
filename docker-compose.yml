@@ -1,0 +1,40 @@
+version: '1.0'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      NODE_ENV: production
+      PORT: 8000
+      ASTRO_TOKEN_SECRET: your_token_secret
+      ASTRO_TOKEN_EXPIRY: 356d
+      MONGODB_URL: mongodb://mongo:27017/
+      CORS_ORIGIN: http://localhost:4000
+      USER_JWT_SECRET: dfshlashviuhfavhawovhow
+      USER_JWT_EXPIRY: 356d
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

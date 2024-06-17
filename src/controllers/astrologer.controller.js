@@ -7,7 +7,6 @@ export const toggleTopAstrologer = asyncHandler(async (req, res) => {
     const id = req.astrologer._id
      
         const astrologer = await Astrologer.findById(id);
-        astrologer.isTopAstrologer = !astrologer.isTopAstrologer;
         astrologer.toggleAstrologer = !astrologer.toggleAstrologer;
         await astrologer.save();
         res.status(200).json(new ApiResponse(200,"top astrologer status updated",astrologer._id))
