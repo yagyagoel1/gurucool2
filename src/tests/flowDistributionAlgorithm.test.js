@@ -4,7 +4,6 @@ import flowDistributionAlgorithm from '../utils/flowAlgorithm/flowAlgorithm.js';
 
 describe('FlowDistributionAlgorithm', () => {
   beforeEach(async () => {
-    await redisClient.flushall();
     await flowDistributionAlgorithm.initialize();
   });
 
@@ -13,7 +12,7 @@ describe('FlowDistributionAlgorithm', () => {
     const result = await flowDistributionAlgorithm.addAstrologer(astrologer);
     
     expect(result).not.toBeNull();
-    const storedAstrologer = await redisClient.hgetall('astrologer:1');
+    const storedAstrologer = await redisClient.hGetAll('astrologer:1');
     expect(storedAstrologer).not.toBeNull();
     expect(storedAstrologer.email).toBe('astro1@example.com');
   });
@@ -53,7 +52,7 @@ describe('FlowDistributionAlgorithm', () => {
 
     await flowDistributionAlgorithm.removeAstrologer('1');
 
-    const storedAstrologer = await redisClient.hgetall('astrologer:1');
+    const storedAstrologer = await redisClient.hGetAll('astrologer:1');
     expect(storedAstrologer).toBeNull();
   });
 });
