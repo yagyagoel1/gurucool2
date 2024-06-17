@@ -25,7 +25,7 @@ describe('FlowDistributionAlgorithm', () => {
     expect(result).toBeNull();
   });
 
-  it('should distribute a user to the least connected astrologer', async () => {
+  it('should distribute a user to the least connected astrologer and prioritize the top astro', async () => {
     const astrologer1 = { _id: '1', email: 'astro1@example.com', isTopAstrologer: false, toggleAstrologer: true, currentConnections: 0 };
     const astrologer2 = { _id: '2', email: 'astro2@example.com', isTopAstrologer: true, toggleAstrologer: true, currentConnections: 0 };
     const astrologer3 = { _id: '3', email: 'astro3@example.com', isTopAstrologer: false, toggleAstrologer: true, currentConnections: 0 };
