@@ -28,9 +28,6 @@ class MockRedisClient {
         delete this.store[key];
     }
 
-    async flushAll() {
-        this.store = {};
-    }
 }
 
 const redisClient = new MockRedisClient();
