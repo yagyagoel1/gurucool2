@@ -1,6 +1,6 @@
 import { describe, it, beforeEach, expect } from 'vitest';
 import redisClient from '../__mocks__/redisClient.js';
-import flowDistributionAlgorithm from '../utils/flowAlgorithm/flowAlgorithm.js';
+import flowDistributionAlgorithm from '../src/utils/flowAlgorithm/flowAlgorithm.js';
 
 describe('FlowDistributionAlgorithm', () => {
   beforeEach(async () => {

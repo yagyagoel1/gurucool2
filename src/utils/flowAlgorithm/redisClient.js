@@ -1,5 +1,5 @@
 import { createClient } from 'redis';
-import MockRedisClient from '../../__mocks__/redisClient.js';
+import MockRedisClient from '../../../__mocks__/redisClient.js';
 const isTest = process.env.NODE_ENV === 'test';
 
 
