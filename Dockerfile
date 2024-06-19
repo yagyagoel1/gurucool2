@@ -1,6 +1,7 @@
 
 FROM node:20-alpine
 
+LABEL authors="yagyagoel87@gmail.com"
 # Set the working directory
 WORKDIR /usr/src/app
 
@@ -8,10 +9,13 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm ci 
 
+USER node
 # Copy the rest of the application code
-COPY . .
+COPY --chown=node:node . .
+
+
 
 # Expose the port the app runs on
 EXPOSE 8000
